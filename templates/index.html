@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQL Query Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sidebar {
+            width: 30%;
+        }
+
+        .content {
+            width: 70%;
+        }
+
+        .sidebar-item {
+            margin-bottom: 20px;
+        }
+
+        .content-item {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>SQL Query Tool</h1>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Database Credentials</h2>
+            <form action="/database-creds" method="POST" class="sidebar-item">
+                <label>Host:</label>
+                <input type="text" name="host" required>
+                <br>
+                <label>Port:</label>
+                <input type="text" name="port" required>
+                <br>
+                <label>User:</label>
+                <input type="text" name="user" required>
+                <br>
+                <label>Password:</label>
+                <input type="password" name="password" required>
+                <br>
+                <label>Database:</label>
+                <input type="text" name="database" required>
+                <br>
+                <input type="submit" value="Set Credentials">
+            </form>
+        </div>
+        <div class="content">
+            <h2>SQL Query</h2>
+            <form action="/query-results" method="POST" class="content-item">
+                <textarea name="sql_query" rows="10" placeholder="Enter your SQL query here" required></textarea>
+                <br>
+                <input type="submit" value="Submit Query">
+            </form>
+            {% if preview_results %}
+                <h2>Query Results:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for col in preview_results[0] %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in preview_results[1:] %}
+                            <tr>
+                                {% for value in row %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            {% if filename %}
+                <div class="download-link">
+                    <a href="/download/{{ filename }}">Download Full Results</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

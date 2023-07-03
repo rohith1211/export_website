@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQL Query</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #e2f5f1;
+            background-image: url('/static/images/Screenshot\ 2023-06-27\ 190222.png'); /* Replace with the correct path to your image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: blur(3px); /* Adjust the blur intensity as desired */
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+        .form-container  {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%; /* Adjust the width as needed */
+            margin: 0 auto;
+        }
+        .form-container {
+            margin: 20px;
+            max-width: 400px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px; /* Adds rounded corners */
+            float: left; /* Aligns the form to the left */
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            resize: none; /* Disables the ability to resize the textarea */
+            color: rgb(22, 14, 14); /* Sets the SQL query text color to white */
+        }
+
+        select {
+            width: 100%;
+            height: 200px;
+            resize: none;
+            color: rgb(22, 14, 14); /* Sets the SQL query text color to white */
+            background-color: rgba(232, 223, 223, 0.7); /* Sets a darker background color for the select element */
+            overflow-y: scroll; /* Enables vertical scrolling */
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-left: 210px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <h1>SQL Query</h1>
+    
+    <div class="form-container">
+        <form action="/query" method="POST">
+            <textarea name="sql_query" rows="10" placeholder="Enter your SQL query here" required></textarea>
+            <br>
+            {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+            {% endif %}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    
+    <div class="form-container">
+        <h2>List of Tables</h2>
+        <form>
+            <select name="table_names" size="10" required>
+                {% for table_name in table_names %}
+                <option value="{{ table_name }}">{{ table_name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+</body>
+</html>

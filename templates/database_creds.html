@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Credentials</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 5px;
+            background-color: #e2f5f1;
+            background-image: url('/static/images/datawerehouse-final-en.gif'); /* Replace with the correct path to your image */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center top 250px;;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 50px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-left: 190px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #19881f;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Database Credentials</h1>
+    <form action="/database-creds" method="POST">
+        <input type="text" name="host" placeholder="Host" required><br>
+        <input type="text" name="port" placeholder="Port" required><br>
+        <input type="text" name="user" placeholder="User" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="text" name="database" placeholder="Database" required><br>
+        {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+        {% endif %}
+        <div class="center">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>

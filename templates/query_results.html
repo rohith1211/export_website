@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query Results</title>
+    <script>
+        // JavaScript code goes here
+        document.getElementById("exportButton").addEventListener("click", function() {
+            // Export functionality remains the same as before
+            // ...
+            // Show download success pop-up
+            alert("Download successful!");
+        });
+    </script>
+</head>
+<body>
+    <h1>Query Results</h1>
+    <table>
+        <tr>
+            {% for column in columns %}
+                <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in results %}
+            <tr>
+                {% for value in row %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="/download/{{ filename }}">Download CSV</a>
+</body>
+</html>
