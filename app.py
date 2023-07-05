@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
+import datetime
+import pandas as pd
 import mysql.connector
 import csv
 
@@ -78,11 +80,14 @@ def query_results():
             cursor.close()
             connection.close()
 
+            # Generate the current date
+            current_date = datetime.datetime.now().strftime("%Y%m%d")
+
             # Generate a unique filename for each query
-            filename = 'query_result.csv'
+            filename = f"query_result_{current_date}.csv"
 
             # Save the results to a CSV file
-            with open(filename, 'w', newline='') as csvfile:
+            with open(f"static/{filename}", 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow(columns)  # Write column names to CSV file
                 writer.writerows(results)
